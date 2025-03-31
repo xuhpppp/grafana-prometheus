@@ -1,0 +1,38 @@
+Download link: prometheus.io/download/
+wget ...
+
+Create group and user:
+sudo groupadd --system prometheus
+sudo useradd -s /sbin/nologin --system -g prometheus prometheus
+
+Create base directory:
+sudo mkdir -p /etc/prometheus/rules
+sudo mkdir -p /etc/prometheus/rules.s
+sudo mkdir -p /etc/prometheus/files_sd
+
+Extract source base:
+sudo tar xvf ...
+cd ...
+sudo mv prometheus promtool /usr/local/bin/
+prometheus --version
+promtool --version
+sudo mv prometheus.yml /etc/prometheus/prometheus.yml
+
+Turn prometheus into a service:
+sudo nano /etc/systemd/system/prometheus.service
+-> Update content file
+
+Change owner of prometheus folder:
+sudo chown -R prometheus:prometheus /etc/prometheus
+sudo chown -R prometheus:prometheus /etc/prometheus/*
+sudo chmod -R 755 /etc/prometheus
+sudo chmod -R 755 /etc/prometheus/*
+sudo chown -R prometheus:prometheus /var/lib/prometheus
+sudo chown -R prometheus:prometheus /var/lib/prometheus/*
+
+Reload daemon and start prometheus service:
+sudo systemctl daemon-reload
+sudo systemctl start prometheus
+sudo systemctl enable prometheus
+systemctl status prometheus
+-> check port 9090
