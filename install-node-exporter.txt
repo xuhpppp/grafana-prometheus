@@ -1,0 +1,28 @@
+Download link: prometheus.io/download/
+wget ...
+
+Extract source base:
+sudo tar -xvf ...
+cd ...
+
+Run node-exporter:
+./node-exporter
+
+or run node-exporter as a service
+Create group and user:
+sudo groupadd --system prometheus
+sudo useradd -s /sbin/nologin --system -g prometheus prometheus
+
+Create binary folder:
+sudo mkdir /var/lib/node/
+sudo mv node-exporter /var/lib/node/
+sudo chown -R prometheus:prometheus /var/lib/node
+sudo chown -R prometheus:prometheus /var/lib/node/*
+sudo chmod -R 755 /var/lib/node
+sudo chmod -R 755 /var/lib/node/*
+
+Create service file:
+sudo nano /etc/systemd/system/node.service
+sudo systemctl daemon-reload
+sudo systemctl start node
+sudo systemctl enable node

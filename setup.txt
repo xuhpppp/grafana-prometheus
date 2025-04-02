@@ -1,0 +1,12 @@
+Setup prometheus to scrape from node-exporter:
+sudo nano /etc/prometheus/prometheus.yml
+
+---update---
+- job_name: "application_server"
+  static_configs:
+    - targets: ["localhost:9100"]
+      labels:
+        app: "prometheus"
+------------
+
+sudo systemctl restart prometheus
